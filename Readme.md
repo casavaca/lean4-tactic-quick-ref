@@ -12,6 +12,17 @@
 TODO
 </details>
 
+<details><summary> calc </summary>
+Proof by calculation. Also works for inequality.
+```lean
+calc
+  blah = blah1  := by ...
+  _    = blah2  := by ...
+  _    = blah3  := by ...
+  _    = target := by ...
+```
+</details>
+
 <details><summary> clear </summary>
 removes the given hypotheses, or fails if there are remaining references to a hypothesis
 </details>
@@ -190,12 +201,25 @@ convert `a = b` to `b = a`.
 + `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
 </details>
 
+<details><summary> **trans** </summary>
+turn `a = b` into `a = ?` and `? = b`
+</details>
+
 <details><summary> unfold </summary>
 + `unfold id` unfolds definition `id`.
 + `unfold id1 id2 ...` is equivalent to `unfold id1; unfold id2; ...`.
 </details>
 
+## Mathematics
 
+<details><summary> **abel** </summary>
+</details>
+
+<details><summary> **field_simp** </summary>
+</details>
+
+<details><summary> **ring** / **ring!** </summary>
+</details>
 
 ## Tactic meta / debug / trace
 
