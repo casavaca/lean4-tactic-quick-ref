@@ -8,12 +8,21 @@
 + included by `trivial`
 </details>
 
-<details><summary> cases / cases' </summary>
+<details><summary> by_cases / cases / cases' / **rcases** </summary>
 TODO
 </details>
 
 <details><summary> clear </summary>
 removes the given hypotheses, or fails if there are remaining references to a hypothesis
+</details>
+
+<details><summary> congr / **gcongr** </summary>
++ congr:
+  For example, given `⊢ f (g (x + y)) = f (g (y + x))`,
+  `congr` produces the goals `⊢ x = y` and `⊢ y = x`,
+  while `congr 2` produces the intended `⊢ x + y = y + x`.
++ **gcongr**:
+  generalized congr. also work for inequality
 </details>
 
 <details><summary> constructor </summary>
@@ -24,6 +33,15 @@ the first matching constructor, or else fails.
 <details><summary> contradiction </summary>
 + closes the main goal if its hypotheses are "trivially contradictory".
 + included by `trivial`
+</details>
+
+<details><summary> delta </summary>
+`delta id1 id2 ...` delta-expands the definitions `id1`, `id2`, ....
+This is a low-level tactic, it will expose how recursive definitions have been compiled by Lean.
+</details>
+
+<details><summary> exists </summary>
+`exists e₁, e₂, ...` is shorthand for `refine ⟨e₁, e₂, ...⟩; try trivial`.
 </details>
 
 <details><summary> exfalso </summary>
@@ -51,11 +69,29 @@ example : 2 + 3 = 5 := by
 ```
 </details>
 
+<details><summary> have / have' </summary>
++ have: TODO
++ have': similar to refine'
+</details>
+
+<details><summary> induction </summary>
+</details>
+
+<details><summary> **induction'** </summary>
++ induction on list length: `induction' ih : l.length generalizing l`
++ strong induction on list length: `induction' ih : l.length using Nat.case_strong_induction_on generalizing l`
+</details>
+
 <details><summary> infer_instance </summary>
 `exact inferInstance`
 </details>
 
-<details><summary> **let / set** </summary>
+<details><summary> injection / injections </summary>
++ injection : from `(a::b) = (c::d)` we derive `a=c` and `b=d`.
++ injections: do it recursively.
+</details>
+
+<details><summary> let / set / let' </summary>
 ```lean
 example : 2 + 3 = 5 := by
   -- Goals (1)
@@ -66,10 +102,14 @@ example : 2 + 3 = 5 := by
   -- h : x = 3
   -- ⊢ 2 + x = 5
 ```
++ let': similar to refine'
 </details>
 
 <details><summary> **linarith** </summary>
 linear (in)equalities over ℕ, ℤ, and ℚ
+</details>
+
+<details><summary> norm_cast / push_cast </summary>
 </details>
 
 <details><summary> obtain </summary>
@@ -78,8 +118,9 @@ example {a b : Nat} (h : a ≤ b ∧ b ≤ a) : a = b := by
   exact Nat.eq_of_le_of_lt_succ h2 $ Nat.lt_succ_of_le h1
 </details>
 
-<details><summary> **omega** </summary>
-solve integer / natural number linear problems
+<details><summary> omega / bv_omega </summary>
++ omega: solve integer / natural number linear problems
++ bv_omega: additional helper with BitVec
 </details>
 
 <details><summary> rename / rename_i </summary>
@@ -112,13 +153,7 @@ example : ∀ e a b c d : Nat, a = b → a = d → a = c → c = b := by
 move the hypothesis into goal.
 </details>
 
-<details><summary> rfl / rfl' / ac_rfl </summary>
-+ `rfl`    : trying to close the goal by reflexivity. included by `trivial`
-+ `rfl'`   : `set_option smartUnfolding false in with_unfolding_all rfl`
-+ `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
-</details>
-
-<details><summary> rw </summary>
+<details><summary> rewrite / rw </summary>
 ```lean
 example (n : ℕ) (h : n = 2 + 2) : n = 4 := by
   -- ⊢ n = 4
@@ -126,6 +161,41 @@ example (n : ℕ) (h : n = 2 + 2) : n = 4 := by
   -- ⊢ n = 2 + 2
 ```
 </details>
+
+<details><summary> simp / simp_all / dsimp / simpa </summary>
++ simp
++ simp_all : stronger `simp [*] at *`
++ dsimp: definitional simp
++ simpa: closing form. `simpa [...]` or `simpa [...] using e`.
+</details>
+
+<details><summary> specialize </summary>
+</details>
+
+<details><summary> split </summary>
+</details>
+
+<details><summary> suffices </summary>
+TODO
+</details>
+
+<details><summary> symm </summary>
+convert `a = b` to `b = a`.
+</details>
+
+
+<details><summary> rfl / rfl' / ac_rfl </summary>
++ `rfl`    : trying to close the goal by reflexivity. included by `trivial`
++ `rfl'`   : `set_option smartUnfolding false in with_unfolding_all rfl`
++ `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
+</details>
+
+<details><summary> unfold </summary>
++ `unfold id` unfolds definition `id`.
++ `unfold id1 id2 ...` is equivalent to `unfold id1; unfold id2; ...`.
+</details>
+
+
 
 ## Tactic meta / debug / trace
 
@@ -146,7 +216,7 @@ next                                  : focus on the next goal
 focus                                 : focus on main goal and suppress other goals.
 first | apply xyz | assumption | ...  : try these in order until one succeeds.
 try ...                               : same as `first ... | skip`
-repeat ...                            :
+repeat / repeat' / repeate1'          :
 all_goals ...                         :
 any_goals ...                         :
 pick_goal n                           : move `n`-th goal to the front
