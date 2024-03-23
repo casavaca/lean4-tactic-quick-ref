@@ -1,224 +1,264 @@
 # Lean 4 tactics — quick ref
 
 <details><summary> apply </summary>
+
 </details>
 
 <details><summary> assumption </summary>
-+ close the goal with a hypothesis, or fail.
-+ included by `trivial`
+
+  + close the goal with a hypothesis, or fail.
+  + included by `trivial`
 </details>
 
 <details><summary> by_cases / cases / cases' / **rcases** </summary>
-TODO
+
+  TODO
 </details>
 
 <details><summary> calc </summary>
-Proof by calculation. Also works for inequality.
-```lean
-calc
-  blah = blah1  := by ...
-  _    = blah2  := by ...
-  _    = blah3  := by ...
-  _    = target := by ...
-```
+
+  Proof by calculation. Also works for inequality.
+  ```lean
+  calc
+    blah = blah1  := by ...
+    _    = blah2  := by ...
+    _    = blah3  := by ...
+    _    = target := by ...
+  ```
 </details>
 
 <details><summary> clear </summary>
-removes the given hypotheses, or fails if there are remaining references to a hypothesis
+
+  removes the given hypotheses, or fails if there are remaining references to a hypothesis
 </details>
 
 <details><summary> congr / **gcongr** </summary>
-+ congr:
-  For example, given `⊢ f (g (x + y)) = f (g (y + x))`,
-  `congr` produces the goals `⊢ x = y` and `⊢ y = x`,
-  while `congr 2` produces the intended `⊢ x + y = y + x`.
-+ **gcongr**:
-  generalized congr. also work for inequality
+
+  + congr:
+    For example, given `⊢ f (g (x + y)) = f (g (y + x))`,
+    `congr` produces the goals `⊢ x = y` and `⊢ y = x`,
+    while `congr 2` produces the intended `⊢ x + y = y + x`.
+  + **gcongr**:
+    generalized congr. also work for inequality
 </details>
 
 <details><summary> constructor </summary>
-If the main goal's target type is an inductive type, `constructor` solves it with
-the first matching constructor, or else fails.
+
+  If the main goal's target type is an inductive type, `constructor` solves it with the first matching constructor, or else fails.
 </details>
 
 <details><summary> contradiction </summary>
-+ closes the main goal if its hypotheses are "trivially contradictory".
-+ included by `trivial`
+
+  + closes the main goal if its hypotheses are "trivially contradictory".
+  + included by `trivial`
 </details>
 
 <details><summary> delta </summary>
-`delta id1 id2 ...` delta-expands the definitions `id1`, `id2`, ....
-This is a low-level tactic, it will expose how recursive definitions have been compiled by Lean.
+
+  `delta id1 id2 ...` delta-expands the definitions `id1`, `id2`, ....
+
+  This is a low-level tactic, it will expose how recursive definitions have been compiled by Lean.
 </details>
 
 <details><summary> exists </summary>
-`exists e₁, e₂, ...` is shorthand for `refine ⟨e₁, e₂, ...⟩; try trivial`.
+
+  `exists e₁, e₂, ...` is shorthand for `refine ⟨e₁, e₂, ...⟩; try trivial`.
 </details>
 
 <details><summary> exfalso </summary>
-turn the goal into False
+
+  turn the goal into False
 </details>
 
 <details><summary> exact / refine / refine' </summary>
-+ `exact e` : close the goal using `e`
-+ refine is similar to exact, but allow holes, which are turned into new goals.
-e.g., `refine succ_lt_succ (Nat.lt_trans ?_ (lt_succ_self _))`
-+ refine' is similar to refine, but unsolved `_` and implicit parameters are also turned into new goals.
+
+  + `exact e` : close the goal using `e`
+  + `refine` is similar to exact, but allow holes, which are turned into new goals.
+  + e.g., `refine succ_lt_succ (Nat.lt_trans ?_ (lt_succ_self _))`
+  + `refine'` is similar to refine, but unsolved `_` and implicit parameters are also turned into new goals.
 </details>
 
 <details><summary> generalize </summary>
-```lean
-example : 2 + 3 = 5 := by
-  -- Goals (1)
-  -- ⊢ 2 + 3 = 5
-  generalize h : 3 = x
-  -- Goals (1)
-  -- x : ℕ
-  -- h : 3 = x
-  -- ⊢ 2 + x = 5
-  rw [← h]
-```
+
+  ```lean
+  example : 2 + 3 = 5 := by
+    -- Goals (1)
+    -- ⊢ 2 + 3 = 5
+    generalize h : 3 = x
+    -- Goals (1)
+    -- x : ℕ
+    -- h : 3 = x
+    -- ⊢ 2 + x = 5
+    rw [← h]
+  ```
 </details>
 
 <details><summary> have / have' </summary>
-+ have: TODO
-+ have': similar to refine'
+
+  + have: TODO
+  + have': similar to refine'
 </details>
 
 <details><summary> induction </summary>
+
 </details>
 
 <details><summary> **induction'** </summary>
-+ induction on list length: `induction' ih : l.length generalizing l`
-+ strong induction on list length: `induction' ih : l.length using Nat.case_strong_induction_on generalizing l`
+
+  + induction on list length: `induction' ih : l.length generalizing l`
+  + strong induction on list length: `induction' ih : l.length using Nat.case_strong_induction_on generalizing l`
 </details>
 
 <details><summary> infer_instance </summary>
-`exact inferInstance`
+
+  `exact inferInstance`
 </details>
 
 <details><summary> injection / injections </summary>
-+ injection : from `(a::b) = (c::d)` we derive `a=c` and `b=d`.
-+ injections: do it recursively.
+
+  + injection : from `(a::b) = (c::d)` we derive `a=c` and `b=d`.
+  + injections: do it recursively.
 </details>
 
 <details><summary> let / set / let' </summary>
-```lean
-example : 2 + 3 = 5 := by
-  -- Goals (1)
-  -- ⊢ 2 + 3 = 5
-  set x := 3 with h
-  -- Goals (1)
-  -- x : ℕ := 3
-  -- h : x = 3
-  -- ⊢ 2 + x = 5
-```
-+ let': similar to refine'
+
+  ```lean
+  example : 2 + 3 = 5 := by
+    -- Goals (1)
+    -- ⊢ 2 + 3 = 5
+    set x := 3 with h
+    -- Goals (1)
+    -- x : ℕ := 3
+    -- h : x = 3
+    -- ⊢ 2 + x = 5
+  ```
+
+  + let': similar to refine'
 </details>
 
 <details><summary> **linarith** </summary>
-linear (in)equalities over ℕ, ℤ, and ℚ
+
+  linear (in)equalities over ℕ, ℤ, and ℚ
 </details>
 
 <details><summary> norm_cast / push_cast </summary>
+
 </details>
 
 <details><summary> obtain </summary>
-example {a b : Nat} (h : a ≤ b ∧ b ≤ a) : a = b := by
-  obtain ⟨h1, h2⟩ := h
-  exact Nat.eq_of_le_of_lt_succ h2 $ Nat.lt_succ_of_le h1
+
+   ```lean
+   example {a b : Nat} (h : a ≤ b ∧ b ≤ a) : a = b := by
+     obtain ⟨h1, h2⟩ := h
+     exact Nat.eq_of_le_of_lt_succ h2 $ Nat.lt_succ_of_le h1
+  ```
 </details>
 
 <details><summary> omega / bv_omega </summary>
-+ omega: solve integer / natural number linear problems
-+ bv_omega: additional helper with BitVec
+
+  + omega: solve integer / natural number linear problems
+  + bv_omega: additional helper with BitVec
 </details>
 
 <details><summary> rename / rename_i </summary>
-```lean
-example : ∀ e a b c d : Nat, a = b → a = d → a = c → c = b := by
-  intros
-  -- Goals (1)
-  -- e a³ b c d : ℕ
-  -- a² : a³ = b
-  -- a¹ : a³ = d
-  -- a : a³ = c
-  -- ⊢ c = b
-  rename _ = _ => hac -- rename last type of _ = _ to hac
-  rename_i hab _      -- rename last unnamed hypothesis with _, second last with hab
-  -- Goals (1)
-  -- e a¹ b c d : ℕ
-  -- hab : a¹ = b
-  -- a : a¹ = d
-  -- hac : a¹ = c
-  -- ⊢ c = b
-  apply Eq.trans
-  apply Eq.symm
-  exact hac
-  exact hab
-```
+
+  ```lean
+  example : ∀ e a b c d : Nat, a = b → a = d → a = c → c = b := by
+    intros
+    -- Goals (1)
+    -- e a³ b c d : ℕ
+    -- a² : a³ = b
+    -- a¹ : a³ = d
+    -- a : a³ = c
+    -- ⊢ c = b
+    rename _ = _ => hac -- rename last type of _ = _ to hac
+    rename_i hab _      -- rename last unnamed hypothesis with _, second last with hab
+    -- Goals (1)
+    -- e a¹ b c d : ℕ
+    -- hab : a¹ = b
+    -- a : a¹ = d
+    -- hac : a¹ = c
+    -- ⊢ c = b
+    apply Eq.trans
+    apply Eq.symm
+    exact hac
+    exact hab
+  ```
 </details>
 
 
 <details><summary> revert </summary>
-move the hypothesis into goal.
+
+  move the hypothesis into goal.
 </details>
 
 <details><summary> rewrite / rw </summary>
-```lean
-example (n : ℕ) (h : n = 2 + 2) : n = 4 := by
-  -- ⊢ n = 4
-  rw [(by rfl : 4 = 2 + 2)]
-  -- ⊢ n = 2 + 2
-```
+
+  ```lean
+  example (n : ℕ) (h : n = 2 + 2) : n = 4 := by
+    -- ⊢ n = 4
+    rw [(by rfl : 4 = 2 + 2)]
+    -- ⊢ n = 2 + 2
+  ```
 </details>
 
 <details><summary> simp / simp_all / dsimp / simpa </summary>
-+ simp
-+ simp_all : stronger `simp [*] at *`
-+ dsimp: definitional simp
-+ simpa: closing form. `simpa [...]` or `simpa [...] using e`.
+
+  + simp
+  + simp_all : stronger `simp [*] at *`
+  + dsimp: definitional simp
+  + simpa: closing form. `simpa [...]` or `simpa [...] using e`.
 </details>
 
 <details><summary> specialize </summary>
+
 </details>
 
 <details><summary> split </summary>
+
 </details>
 
 <details><summary> suffices </summary>
-TODO
+
+  TODO
 </details>
 
 <details><summary> symm </summary>
-convert `a = b` to `b = a`.
+
+  convert `a = b` to `b = a`.
 </details>
 
 
 <details><summary> rfl / rfl' / ac_rfl </summary>
-+ `rfl`    : trying to close the goal by reflexivity. included by `trivial`
-+ `rfl'`   : `set_option smartUnfolding false in with_unfolding_all rfl`
-+ `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
+
+  + `rfl`    : trying to close the goal by reflexivity. included by `trivial`
+  + `rfl'`   : `set_option smartUnfolding false in with_unfolding_all rfl`
+  + `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
 </details>
 
 <details><summary> **trans** </summary>
-turn `a = b` into `a = ?` and `? = b`
+
+  turn `a = b` into `a = ?` and `? = b`
 </details>
 
 <details><summary> unfold </summary>
-+ `unfold id` unfolds definition `id`.
-+ `unfold id1 id2 ...` is equivalent to `unfold id1; unfold id2; ...`.
+
+  + `unfold id` unfolds definition `id`.
+  + `unfold id1 id2 ...` is equivalent to `unfold id1; unfold id2; ...`.
 </details>
 
 ## Mathematics
 
 <details><summary> **abel** </summary>
+
 </details>
 
 <details><summary> **field_simp** </summary>
+
 </details>
 
 <details><summary> **ring** / **ring!** </summary>
+
 </details>
 
 ## Tactic meta / debug / trace
