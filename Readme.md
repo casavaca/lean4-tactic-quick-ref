@@ -10,7 +10,7 @@
   + included by `trivial`
 </details>
 
-<details><summary> by_cases / cases / cases' / **rcases** </summary>
+<details><summary> by_cases / cases / cases' / <b>rcases</b> </summary>
 
   TODO
 </details>
@@ -32,13 +32,13 @@
   removes the given hypotheses, or fails if there are remaining references to a hypothesis
 </details>
 
-<details><summary> congr / **gcongr** </summary>
+<details><summary> congr / <b>gcongr</b> </summary>
 
   + congr:
     For example, given `⊢ f (g (x + y)) = f (g (y + x))`,
     `congr` produces the goals `⊢ x = y` and `⊢ y = x`,
     while `congr 2` produces the intended `⊢ x + y = y + x`.
-  + **gcongr**:
+  + <b>gcongr</b>:
     generalized congr. also work for inequality
 </details>
 
@@ -103,7 +103,7 @@
 
 </details>
 
-<details><summary> **induction'** </summary>
+<details><summary> <b>induction'</b> </summary>
 
   + induction on list length: `induction' ih : l.length generalizing l`
   + strong induction on list length: `induction' ih : l.length using Nat.case_strong_induction_on generalizing l`
@@ -136,9 +136,28 @@
   + let': similar to refine'
 </details>
 
-<details><summary> **linarith** </summary>
+<details><summary> <b>linarith</b> </summary>
 
   linear (in)equalities over ℕ, ℤ, and ℚ
+</details>
+
+<details><summary> match </summary>
+
+  ```lean
+  have : m < 4 := by ...
+  match h : m with
+  | 0 => sorry
+  | 1 => sorry
+  | 2 => sorry
+  | 3 => sorry
+  | h + 4 => contradiction
+  ```
+</details>
+
+<details><summary> <b>move_add, move_mul</b> </summary>
+
+  rearrange of `a + b + c + d + ...`
+  e.g., `move_add [a, b, c, ← d, ← e]` returns `d + e + [...] + a + b + c`
 </details>
 
 <details><summary> norm_cast / push_cast </summary>
@@ -236,7 +255,7 @@
   + `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
 </details>
 
-<details><summary> **trans** </summary>
+<details><summary> <b>trans</b> </summary>
 
   turn `a = b` into `a = ?` and `? = b`
 </details>
@@ -249,15 +268,15 @@
 
 ## Mathematics
 
-<details><summary> **abel** </summary>
+<details><summary> <b>abel</b> </summary>
 
 </details>
 
-<details><summary> **field_simp** </summary>
+<details><summary> <b>field_simp</b> </summary>
 
 </details>
 
-<details><summary> **ring** / **ring!** </summary>
+<details><summary> <b>ring / ring!</b> </summary>
 
 </details>
 
