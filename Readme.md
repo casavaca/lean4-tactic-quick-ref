@@ -40,6 +40,8 @@
     while `congr 2` produces the intended `⊢ x + y = y + x`.
   + <b>gcongr</b>:
     generalized congr. also work for inequality
+
+    trace: `set_option trace.Meta.gcongr true in`
 </details>
 
 <details><summary> constructor </summary>
@@ -139,6 +141,20 @@
 <details><summary> <b>linarith</b> </summary>
 
   linear (in)equalities over ℕ, ℤ, and ℚ
+</details>
+
+<details><summary> <b>linear_combination </b> </summary>
+
+  Let's say we have `h₁ : 2 * a + b = c` and want to proof `a = (c - b) / 2`. We would like lean to do the transposition, but lean is not that smart. `linear_combination` allow us to do the following:
+  `a - (c - b) / 2 - (1/2) * (2 * a + b - c) = 0 → a = (c - b) / 2`
+
+  Basically, it is `lhs - rhs - n₁ * (h₁.left - h₁.right) - n₂ * (h₂.left - h₂.right) - ... → lhs = rhs`.
+
+  You need to feed the coefficient manually.
+
+  Sometimes lean can't figure out if denom ≠ 0, use `linear_combination (norm := (field_simp; ring)) h * ...`
+
+  If lean still can't figure out, help it by doing `have : denom ≠ 0 := by your_proof`
 </details>
 
 <details><summary> match </summary>
