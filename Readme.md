@@ -155,6 +155,24 @@
   Sometimes lean can't figure out if denom ≠ 0, use `linear_combination (norm := (field_simp; ring)) h * ...`
 
   If lean still can't figure out, help it by doing `have : denom ≠ 0 := by your_proof`
+
+  Sometimes, it still won't work because ↑(m / n) = ↑m / ↑n isn't always true. You need to help lean again:
+
+  ```lean
+  example (k a b : ℤ) (ha : 1 < a) (hb : 1 < b)
+    (h : k * (a - 1) * (b - 1) = a * b) : k = (a * b) / ((a - 1) * (b - 1)) := by
+    have hh : ((a - 1) * (b - 1) ∣ (a * b)) := by apply dvd_of_mul_left_eq k; rw [←h]; ring
+    have : a ≠ 0 := by apply ne_of_gt; trans 1; simp; assumption
+    have : b ≠ 0 := by apply ne_of_gt; trans 1; simp; assumption
+    have : a - 1 ≠ 0 := by apply ne_of_gt; simpa
+    have : b - 1 ≠ 0 := by apply ne_of_gt; simpa
+    qify at *
+    -- ⊢ ↑k = ↑(a * b / ((a - 1) * (b - 1)))
+    rw [(Rat.coe_int_div _ _ hh)]
+    push_cast
+    -- ⊢ ↑k = ↑a * ↑b / ((↑a - 1) * (↑b - 1))
+    linear_combination (norm := (field_simp; ring)) h * (1 / (a - 1) / (b - 1))
+  ```
 </details>
 
 <details><summary> match </summary>
