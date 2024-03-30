@@ -49,6 +49,15 @@
   If the main goal's target type is an inductive type, `constructor` solves it with the first matching constructor, or else fails.
 </details>
 
+<details><summary> contrapose / contrapose! </summary>
+
+  * `contrapose`     turns a goal `P → Q` into `¬ Q → ¬ P`
+  * `contrapose!`    turns a goal `P → Q` into `¬ Q → ¬ P` and pushes negations inside `P` and `Q` using `push_neg`
+  * `contrapose h`   first reverts the local assumption `h`, and then uses `contrapose` and `intro h`
+  * `contrapose! h`  first reverts the local assumption `h`, and then uses `contrapose!` and `intro h`
+  * `contrapose h with new_h` uses the name `new_h` for the introduced hypothesis
+</details>
+
 <details><summary> contradiction </summary>
 
   + closes the main goal if its hypotheses are "trivially contradictory".
@@ -307,6 +316,16 @@
 </details>
 
 <details><summary> <b>field_simp</b> </summary>
+
+  TODO.
+
+  ```lean
+  -- this : k - 1 > 0
+  -- ⊢ (k - 1) * (k / (k - 1)) < ...
+  field_simp -- doesn't work.
+  -- ⊢ k < ...
+  field_simp [mul_comm] -- works.
+
 
 </details>
 
