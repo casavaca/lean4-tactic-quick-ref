@@ -64,6 +64,44 @@
   + included by `trivial`
 </details>
 
+<details><summary> <b>convert</b> / <b>convert_to</b> </summary>
+
+  ```lean
+  h : 2 * (a * b + b * c + c * a) ≥ a ^ 2 + b ^ 2 + c ^ 2
+  ⊢   2 * (b * a + a * c + c * b) ≥ b ^ 2 + a ^ 2 + c ^ 2
+
+  convert h using 1
+  ⊢   2 * (b * a + a * c + c * b) = 2 * (a * b + b * c + c * a)
+  ⊢   b ^ 2 + a ^ 2 + c ^ 2 = a ^ 2 + b ^ 2 + c ^ 2
+
+  convert h using 2 -- Note that this is too much
+  ⊢   2 = 2          -- solved by the tactic
+  ⊢   (b * a + a * c + c * b) = (a * b + b * c + c * a)
+  ⊢   b ^ 2 = a ^ 2
+  ⊢   a ^ 2 = b ^ 2
+  ⊢   c ^ 2 = c ^ 2 -- solved
+
+  h : 2 * (a * b + b * c + c * a) ≥ a ^ 2 + b ^ 2 + c ^ 2
+  ⊢   2 * (b * a + a * c + c * b) ≥ b ^ 2 + a ^ 2 + c ^ 2
+  move_add [←(a^2)] -- move a^2 to the left
+  h : 2 * (a * b + b * c + c * a) ≥ a ^ 2 + b ^ 2 + c ^ 2
+  ⊢   2 * (b * a + a * c + c * b) ≥ a ^ 2 + b ^ 2 + c ^ 2
+  convert h using 2
+  ⊢   (b * a + a * c + c * b) = (a * b + b * c + c * a)
+  ring_nf
+  ```
+
+  `convert_to g = convert (?_ : g)`
+
+  ```lean
+  ⊢ a > b
+  convert_to (c > d)
+  ⊢ c > d
+  ⊢ a = c
+  ⊢ b = d
+  ```
+</details>
+
 <details><summary> delta </summary>
 
   `delta id1 id2 ...` delta-expands the definitions `id1`, `id2`, ....
