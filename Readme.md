@@ -2,6 +2,16 @@
 
 <details><summary> apply </summary>
 
+  Roughly, if goal is T, and H is A -> B -> T,
+  `apply H` is like
+  exact (H ?_ ?_) where ?_ means now goals generated.
+</details>
+
+<details><summary> apply_fun </summary>
+
+  -- h : a = b
+  apply_fun f at h
+  -- h : f a = f b
 </details>
 
 <details><summary> assumption </summary>
@@ -127,6 +137,10 @@
   + `refine'` is similar to refine, but unsolved `_` and implicit parameters are also turned into new goals.
 </details>
 
+<details><summary> <b>fin_cases</b> </summary>
+
+  + e.g.: Convert `Fin 3` into `0, 1, 2`
+</details>
 <details><summary> generalize </summary>
 
   ```lean
