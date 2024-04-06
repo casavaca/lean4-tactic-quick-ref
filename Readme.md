@@ -199,9 +199,11 @@
   + let': similar to refine'
 </details>
 
-<details><summary> <b>linarith</b> </summary>
+<details><summary> <b>linarith</b> <b>nlinarith</b> </summary>
 
   linear (in)equalities over ℕ, ℤ, and ℚ
+
+  nlinarith is more powerful. Try it when you think linarith should work but it didn't.
 </details>
 
 <details><summary> <b>linear_combination </b> </summary>
