@@ -321,6 +321,8 @@
 <details><summary> simp / simp_all / dsimp / simpa </summary>
 
   + simp
+
+    Note that simp won't look at hypothesis by default. use `simp [*]`.
   + simp_all : stronger `simp [*] at *`
   + dsimp: definitional simp
   + simpa: closing form. `simpa [...]` or `simpa [...] using e`.
