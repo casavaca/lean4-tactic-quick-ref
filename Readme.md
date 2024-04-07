@@ -352,6 +352,12 @@
   + `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
 </details>
 
+<details><summary> tauto </summary>
+
+  Solve first order logic problems. e.g.:
+
+  `a → ((b ∧ c) ↔ (a ∧ b ∧ c))`
+</details>
 <details><summary> <b>trans</b> </summary>
 
   turn `a = b` into `a = ?` and `? = b`
