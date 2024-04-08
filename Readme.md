@@ -20,7 +20,7 @@
   + included by `trivial`
 </details>
 
-<details><summary> by_cases / cases / cases' / <b>rcases</b> </summary>
+<details><summary> by_cases / cases / cases' / <b>rcases</b> / <b>fin_cases</b> / <b>mod_cases</b> </summary>
 
   TODO
 </details>
@@ -34,6 +34,23 @@
     _    = blah2  := by ...
     _    = blah3  := by ...
     _    = target := by ...
+  ```
+</details>
+
+<details><summary> change </summary>
+
+  `change tgt'` will change goal from tgt to tgt'
+  `change t' at h` will change `h: t` into `h: t'`
+
+  Why is it useful? E.g.:
+
+  ```
+  a : ℕ → ℝ := fun k ↦ Int.fract (↑k * x)
+  ⊢ Int.fract (↑n * x) ≤ ∑ x_1 in Finset.Icc 1 n, Int.fract (↑x_1 * x) / ↑x_1
+
+  change a n ≤ ∑ ii in Finset.Icc 1 n, a ii / ii
+
+  ⊢ a n ≤ ∑ ii in Finset.Icc 1 n, a ii / ↑ii
   ```
 </details>
 
@@ -137,10 +154,6 @@
   + `refine'` is similar to refine, but unsolved `_` and implicit parameters are also turned into new goals.
 </details>
 
-<details><summary> <b>fin_cases</b> </summary>
-
-  + e.g.: Convert `Fin 3` into `0, 1, 2`
-</details>
 <details><summary> generalize </summary>
 
   ```lean
