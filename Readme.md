@@ -331,6 +331,11 @@
   ```
 </details>
 
+<details><summary> show </summary>
+
+  `show foo by bar` is equivalen to term (by bar : foo)
+</details>
+
 <details><summary> simp / simp_all / dsimp / simpa </summary>
 
   + simp
