@@ -219,7 +219,7 @@
   nlinarith is more powerful. Try it when you think linarith should work but it didn't.
 </details>
 
-<details><summary> <b>linear_combination </b> </summary>
+<details><summary> <b>linear_combination, linear_combination2</b> </summary>
 
   Let's say we have `h₁ : 2 * a + b = c` and want to proof `a = (c - b) / 2`. We would like lean to do the transposition, but lean is not that smart. `linear_combination` allow us to do the following:
   `a - (c - b) / 2 - (1/2) * (2 * a + b - c) = 0 → a = (c - b) / 2`
@@ -249,6 +249,8 @@
     -- ⊢ ↑k = ↑a * ↑b / ((↑a - 1) * (↑b - 1))
     linear_combination (norm := (field_simp; ring)) h * (1 / (a - 1) / (b - 1))
   ```
+
+  linear_combination2 is similar, but it creates 2 new goals, a.k.a, lhs and rhs of the =. It helps when you can't use "-".
 </details>
 
 <details><summary> match </summary>
