@@ -54,8 +54,12 @@
   ```
 </details>
 
-<details><summary> clear </summary>
+<details><summary> classical </summary>
 
+  make every Prop decidable.
+</details>
+
+<details><summary> clear </summary>
   removes the given hypotheses, or fails if there are remaining references to a hypothesis
 </details>
 
