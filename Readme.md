@@ -7,7 +7,7 @@
   exact (H ?_ ?_) where ?_ means now goals generated.
 </details>
 
-<details><summary> apply_fun </summary>
+<details><summary> ⭐ apply_fun </summary>
 
   -- h : a = b
   apply_fun f at h
@@ -269,7 +269,7 @@
   linear_combination2 is similar, but it creates 2 new goals, a.k.a, lhs and rhs of the =. It helps when you can't use "-".
 </details>
 
-<details><summary> match </summary>
+<details><summary> ⭐ match </summary>
 
   ```lean
   have : m < 4 := by ...
@@ -282,13 +282,13 @@
   ```
 </details>
 
-<details><summary> <b>move_add, move_mul</b> </summary>
+<details><summary> ⭐ <b>move_add, move_mul</b> </summary>
 
   rearrange of `a + b + c + d + ...`
   e.g., `move_add [a, b, c, ← d, ← e]` returns `d + e + [...] + a + b + c`
 </details>
 
-<details><summary> norm_cast / push_cast </summary>
+<details><summary> ⭐ norm_cast / push_cast </summary>
 
 </details>
 
@@ -301,7 +301,7 @@
   ```
 </details>
 
-<details><summary> omega / bv_omega </summary>
+<details><summary> ⭐ omega / bv_omega </summary>
 
   + omega: solve integer / natural number linear problems
   + bv_omega: additional helper with BitVec
@@ -374,7 +374,10 @@
 
 <details><summary> suffices </summary>
 
-  TODO
+  suffices new_goal : foo
+  
+  append `new_goal : foo` to goals
+
 </details>
 
 <details><summary> symm </summary>
@@ -390,7 +393,7 @@
   + `ac_rfl` : `example (a b c d : Nat) : a + b + c + d = d + (b + c) + a := by ac_rfl`
 </details>
 
-<details><summary> tauto </summary>
+<details><summary> ⭐ tauto </summary>
 
   Solve first order logic problems. e.g.:
 
