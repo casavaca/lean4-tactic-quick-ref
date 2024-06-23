@@ -221,6 +221,18 @@
   linear (in)equalities over ℕ, ℤ, and ℚ
 
   nlinarith is more powerful. Try it when you think linarith should work but it didn't.
+
+  Note: sometimes `linarith` doesn't work, but `omega` does, e.g.:
+
+  ```lean
+  example (i : ℕ) (k : ℤ) (hi : i < 90) (hk : 0 < k) : (i : ℝ) * 2 < k * 180 := by
+    norm_cast
+    linarith -- Doesn't work
+
+  example (i : ℕ) (k : ℤ) (hi : i < 90) (hk : 0 < k) : (i : ℝ) * 2 < k * 180 := by
+    norm_cast
+    omega    -- Works.
+   ```
 </details>
 
 <details><summary> <b>linear_combination, linear_combination2</b> </summary>
@@ -449,3 +461,14 @@ rotate_left n                         : imagine all goals as a list, rotate left
 rotate_right n                        : imagine all goals as a list, rotate left the goals.
 swap                                  : `pick_goal 2`
 ```
+
+## For debug
+
+set_option pp.notation false in ...
+
+  effect: / --> HDiv
+
+set_option pp.numericTypes true ini ...
+
+  effect: show Type after number. i.e: hi : i < (90 : ℕ)
+
