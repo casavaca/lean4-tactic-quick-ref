@@ -133,6 +133,33 @@
   ```
 </details>
 
+<details><summary> decide: prove by calculation </summary>
+
+  `all_goals (first | decide | contradiction)`
+
+  ```lean
+    case h.right.«0».«1».«0».«0»
+    hij : ¬0 = 1
+    hxy : 1 ≠ 1
+    ⊢ ¬(1 ∈ {1, 7, 8, 9, 10, 11} ∧ 1 ∈ {1, 7, 8, 9, 10, 11})
+    
+    case h.right.«0».«1».«0».«1»
+    hij : ¬0 = 1
+    hxy : 1 ≠ 2
+    ⊢ ¬(1 ∈ {1, 7, 8, 9, 10, 11} ∧ 2 ∈ {1, 7, 8, 9, 10, 11})
+    
+    case h.right.«0».«1».«0».«2»
+    hij : ¬0 = 1
+    hxy : 1 ≠ 3
+    ⊢ ¬(1 ∈ {1, 7, 8, 9, 10, 11} ∧ 3 ∈ {1, 7, 8, 9, 10, 11})
+    
+    case h.right.«0».«1».«0».«3»
+    hij : ¬0 = 1
+    hxy : 1 ≠ 4
+    ⊢ ¬(1 ∈ {1, 7, 8, 9, 10, 11} ∧ 4 ∈ {1, 7, 8, 9, 10, 11})
+  ```
+</details>
+
 <details><summary> delta </summary>
 
   `delta id1 id2 ...` delta-expands the definitions `id1`, `id2`, ....
