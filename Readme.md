@@ -334,6 +334,12 @@
   + bv_omega: additional helper with BitVec
 </details>
 
+<details><summary> ⭐ positivity </summary>
+
+  prove that something is positive, e.g. xxx > 0 -> sum xxx > 0
+
+</details>
+
 <details><summary> rename / rename_i </summary>
 
   ```lean
